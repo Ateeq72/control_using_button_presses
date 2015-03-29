@@ -59,7 +59,7 @@ def singlePress():
         elif f[0] == "0" :
 	  print("Suitable situation found ! so starting")
 	  os.system('echo "Suitable environment found ! so starting" | festival --tts')
-	  os.system('echo "use this Address to control your electrical devices!" | festival --tts && hostname -I | festival --tts && echo " : 3 7 0 0 / interface" | festival --tts')
+	  os.system('echo "use this Address to control your electrical devices!" | festival --tts && hostname -I | festival --tts && echo " colon 3 7 0 0 / interface" | festival --tts')
 	  os.system("sudo -u pi /home/pi/HomeAutomation/pi-node-relay/runme.sh")
         
 
