@@ -25,10 +25,11 @@ def triplePress():
 	print ("Pressed Thrice So! Switching to Piracast!")
 	os.system('echo "You pressed the button thrice!. So, Switching to Piracast" | festival --tts')
 	if f[0] == "1":
+	   print('Starting! Piracast')
            os.system('echo "suitable environment found!. So, switching to Piracast" | festival --tts')
 	   os.system("sh /home/pi/runme_piracast.sh")
 	elif f[0] == "0":
-	   #print('place holder')
+	   print('Changing file and rebooting')
 	   os.system('echo "Sorry no suitable environment found!. Changing the file and rebooting!" | festival --tts')
 	   os.system("echo 1 > /home/pi/PiraCast/status")
 	   os.system("sh /home/pi/PiraCast/switch_to_piracast")
