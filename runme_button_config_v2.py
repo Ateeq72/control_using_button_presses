@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import sys
 import os
 from time import sleep
 
@@ -23,6 +24,9 @@ def flashLED(speed, time):
 def triplePress():
        	flashLED(0.5, 3)
 	print ("Pressed Thrice So! Switching to Piracast!")
+	print ("Killing VNC Server as it may interfere!")
+	os.system("vncserver -kill :0")
+	os.system("vncserver -kill :1")
 	os.system('echo "You pressed the button thrice!. So, Switching to Piracast" | festival --tts')
 	if f[0] == "1":
 	   print('Starting! Piracast')
@@ -37,6 +41,8 @@ def triplePress():
 def doublePress():
 	flashLED(0.5, 2)
         print ("Pressed Twice So! Kodi! Here We come! :D")
+	os.system("vncserver -kill :0")
+	os.system("vncserver -kill :1")
 	os.system('echo "You pressed the button twice!. So, KODI here we come!" | festival --tts')
         if f[0] == "1":
 	   print("Changing file and rebooting")
@@ -46,7 +52,7 @@ def doublePress():
         elif f[0] == "0" :
 	   os.system('echo "suitable environment found!. So, Starting KODI!." | festival --tts')
 	   print("Suitable situation found ! so starting")
-	   os.system("kodi-standalone")
+	   os.system("sudo -u pi kodi-standalone")
 
 def singlePress():
 	flashLED(0.5, 1)
@@ -66,6 +72,7 @@ def singlePress():
 
 
 while True:
+ try:
    if GPIO.event_detected(sw_in):
       GPIO.remove_event_detect(sw_in)
       now = time.time()
@@ -93,7 +100,11 @@ while True:
         GPIO.add_event_detect(sw_in,GPIO.FALLING)
 	#break
 
-file.close()
 
-GPIO.cleanup()
-GPIO.setwarnings(False)
+
+ except KeyboardInterrupt:
+        GPIO.cleanup()
+        print "\n Terminated on request"
+	sys.exit()
+	file.close()
+
