@@ -21,12 +21,14 @@ def flashLED(speed, time):
                 GPIO.output(LED, GPIO.HIGH)
                 sleep(speed)
 
+flashLED(0.5, 5)
+
 def triplePress():
        	flashLED(0.5, 3)
 	print ("Pressed Thrice So! Switching to Piracast!")
 	print ("Killing VNC Server as it may interfere!")
-	os.system("vncserver -kill :0")
-	os.system("vncserver -kill :1")
+	os.system("sudo -u root vncserver -kill :0")
+	os.system("sudo -u root vncserver -kill :1")
 	os.system('echo "You pressed the button thrice!. So, Switching to Piracast" | festival --tts')
 	if f[0] == "1":
 	   print('Starting! Piracast')
@@ -41,8 +43,8 @@ def triplePress():
 def doublePress():
 	flashLED(0.5, 2)
         print ("Pressed Twice So! Kodi! Here We come! :D")
-	os.system("vncserver -kill :0")
-	os.system("vncserver -kill :1")
+	os.system("sudo -u root vncserver -kill :0")
+	os.system("sudo -u root vncserver -kill :1")
 	os.system('echo "You pressed the button twice!. So, KODI here we come!" | festival --tts')
         if f[0] == "1":
 	   print("Changing file and rebooting")
@@ -66,8 +68,8 @@ def singlePress():
         elif f[0] == "0" :
 	  print("Suitable situation found ! so starting")
 	  os.system('echo "Suitable environment found ! so starting" | festival --tts')
-	  os.system('echo "use this Address to control your electrical devices!" | festival --tts && hostname -I | festival --tts && echo " colon 3 7 0 0 / interface" | festival --tts')
-	  os.system("sudo -u pi /home/pi/HomeAutomation/pi-node-relay/runme.sh")
+	  os.system('echo "use this Address to control your electrical devices!" | festival --tts && hostname -I | festival --tts && echo " colon 8 0 9 0" | festival --tts')
+	  os.system("sudo -u pi sh /home/pi/HomeAutomation/runme.sh")
         
 
 
